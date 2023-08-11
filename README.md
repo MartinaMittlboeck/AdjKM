@@ -12,7 +12,7 @@ Estimates at a prespecified time point t* are used to test for differences betwe
 The Macro call for the simulated example data set named simbsp_a_1000_05 would be
 > libname simdat 'Data_Path'; 
 > <br> %include "Macro_Path\AdjKM_SAS_Macro.sas"; 
-> <br> %AdjKMV(data=simdat.simbsp_a_1000_50, td_time=binary_time, event_time=time, event_status=event, tsearch=5, tstar=5, alpha=0.05, boot_method=all, boot_rep=2000, result_out=result_out);
+> <br> %AdjKMV(data=simdat.simbsp_a_1000_50, td_time=binary_time, event_time=time, event_status=event, tsearch=5, tstar=5, atrisk=%str(0 to 10 by 1), alpha=0.05, boot_method=all, boot_rep=2000, result_out=result_out);
 
 for an analysis time point at 5 years (t*) for the pseudo-values and for a maximum time to identify the group membership of 5 years. 
 <br> Data_Path should be replaced by the path where the data set is stored and Macro_Path has to be replaced by the path where the SAS macro is stored.
@@ -30,7 +30,9 @@ for an analysis time point at 5 years (t*) for the pseudo-values and for a maxim
 <br>
 <br> <b>tsearch</b> -- maximum donor search time
 <br>
-<br> <b>tsta</b>r -- time point for calculation of survival probabilities and cHR
+<br> <b>tstar</b> -- time point for calculation of survival probabilities and cHR
+<br>
+<br> <b>atrisk</b> -- state time points to show patients at risk in the survival plot, e.g. %str(0 to 10 by 1)
 <br>
 <br> <b>alpha</b> -- two-sided significance level, that is, 1-alpha is a 2-sided confidence level
 <br>
