@@ -1,7 +1,7 @@
 **************************************************************************************************;
 * AdjKM-SAS-Macro                                                                                *;
 * Author: Martina Mittlboeck, Medical University of Vienna, Austria                              *;
-* Version January 2023                                                                          *;
+* Version July 2023 ((includes patients at risk in survival plot)                                *;
 **************************************************************************************************;
 *                                                                                                *;
 * data ......... name of input data set                                                          *;
@@ -18,17 +18,20 @@
 *                                                                                                *;
 * tstar ........ time point for calculation of survival probabilities and cHR                    *;
 *                                                                                                *;
+* atrisk ....... state time points to show patients at risk in the survival plot                 *;
+*                e.g. %str(0 to 10 by 1)                                                         *;
+*                                                                                                *;
 * alpha ........ two-sided significance level, that is, 1-alpha is a 2-sided confidence level    *;
 *                                                                                                *;
-* Boot_method   .. bootstrap methods for two-sided confidence intervals:     					 *;
+* Boot_method   .. bootstrap methods for two-sided confidence intervals:     			 *;
 *                NO   - no Bootstrap (only naive)   	                                         *;
 *                WALD - naive and Bootstrap-Wald                                                 *;
 *                ALL  - naive, Bootstrap-Wald, percentile, BC and BCa                            *;
-*				     BC: bias corrected percentile method                                        *;
-*				     BCa: bias corrected and accelerated percentile method                       *;
+*				     BC: bias corrected percentile method                        *;
+*				     BCa: bias corrected and accelerated percentile method       *;
 *                Default: NO                                                                     *;
-*																								 *;
-* boot_rep ..... number of boostrap replicates 													 *;
+*												 *;
+* boot_rep ..... number of boostrap replicates 							 *;
 *				 (recommended 200 for Wald boostrap and 2000 for percentile, BC and BCa methods) *;
 *                Default: 0 for no                                                               *;
 *                         200 for Wald                                                           *;
@@ -37,14 +40,14 @@
 * out_data ...... (library and) prefix of the name of the two output data sets                   *;
 *                 which are distinguished by the postfixes "_TIME" and "_SURV":                  *;
 *                 _TIME - for individual survival data and weights with                          *;
-*                         _td_      - new variable indicating group membership	         		 *;
+*                         _td_      - new variable indicating group membership	         	 *;
 *                         _M_weight - new weight variable                                        *;
 *                 _SURV - for survival estimates (standard SAS-output from PROC LIFETEST         *;
 *                                                                                                *;
 **************************************************************************************************;
 
 
-%macro AdjKM(data, td_time, event_time, event_status, tsearch, tstar, alpha, boot_method, boot_rep, out_data);
+%macro AdjKM(data, td_time, event_time, event_status, tsearch, tstar, atrisk, alpha, boot_method, boot_rep, out_data);
 options nonotes nofmterr;
 ods listing close;
 ods select none;
@@ -348,11 +351,27 @@ title "Kaplan-Meier estimate by groups according to known and expected donor ava
 title2 "with t_search=&tsearch";
 title3 FINAL TSTAR= &_tstar_valid (only times are valid that are equal or higher than TSEARCH= &tsearch;
 title4 "&samplesize included patients (valid survival time and survival status)"; 
-proc lifetest data=&out_data._TIME plot=(s) timelist=&_tstar_valid outsurv=&out_data._SURV;* reduceout stderr;
+ods output survivalplot=atrisk_data;
+proc lifetest data=&out_data._TIME plot=(s %if &atrisk ne %then %do; (atrisk=&atrisk) %end; )
+			timelist=&_tstar_valid outsurv=&out_data._SURV;* reduceout stderr;
 	time &event_time*&event_status(0);
 	weight _M_weight;
 	strata _td_ ; 
 run;
+
+%if &atrisk ne %then %do; 
+proc sgplot data=atrisk_data;* aspect=1;
+	styleattrs datacontrastcolors=(blue red blue red) datalinepatterns=(solid solid) ;
+	step x=time y=survival / group=Stratum;
+	xaxistable atrisk / class=Stratum x=tatrisk colorgroup=Stratum;* nolabel; 
+	yaxis grid min=0 max=1;
+	xaxis values=(&atrisk)  label="Time" ;
+	keylegend / location=inside position=topright across=1 noborder title=" ";
+	format AtRisk 6.1;
+run;
+%end;
+
+
 
 proc print data=_surv_prob_rep(where=(_replicate_=0)); 
 	title "survival probabilites at time= &_tstar_valid";
