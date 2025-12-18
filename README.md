@@ -2,7 +2,7 @@
 A SAS macro to calculate adjusted Kaplan-Meier curves 
 
 ## Overview
-AdjKM is a SAS macro to calculate adjusted Kaplan-Meier curves in case of a temporarily unknown binary baseline covariate whose values emerge over time (Heinzl and Mittlböck, 2023, submitted).
+AdjKM is a SAS macro to calculate adjusted Kaplan-Meier curves in case of a temporarily unknown binary baseline covariate whose values emerge over time (Mittlböck, Heinzl and Pötschger, 2025, submitted).
 
 ## Details
 Calculation of adjusted Kaplan-Meier curves (AdjKM) and comparison of survival probabilities at an interesting prespecified time point is motivated by investigating the impact of allogeneic stem cell transplantation on childhood leukaemia. The approach compares long-term survival of two cohorts defined by the availability or non-availability of suitable donors for stem cell transplantation. A patient’s cohort membership becomes known only after completed donor search with or without an identified donor. If a patient suffers a donor-search ceasing event, stem cell transplantation will no longer be indicated. In such a case, donor search will be ceased and cohort membership will remain unknown. 
@@ -51,5 +51,5 @@ for an analysis time point at 5 years (t*) for the pseudo-values and for a maxim
 
 
 ## References
-Heinzl H. and Mittlböck M.: Adjusted Kaplan-Meier curves for partly unobserved group membership in paediatric stem cell transplantation studies, 2023. (submitted)
+Mittlböck M., Heinzl H. and Pötschger U.: Adjusted Kaplan-Meier curves for partly unobserved group membership in paediatric stem cell transplantation studies, 2025. (submitted)
 <br> Mittlböck M., Pötschger U. and Heinzl H.: Weighted pseudo-values for partly unobserved group membership in paediatric stem cell transplantation studies. SMMR Vol.31(1):76-86, 2022. DOI: 10.1177/09622802211041756.
