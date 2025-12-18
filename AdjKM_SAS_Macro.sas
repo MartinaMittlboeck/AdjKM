@@ -1,7 +1,7 @@
 **************************************************************************************************;
 * AdjKM-SAS-Macro                                                                                *;
 * Author: Martina Mittlboeck, Medical University of Vienna, Austria                              *;
-* Version July 2023 ((includes patients at risk in survival plot)                                *;
+* Version September 2025 ((includes patients at risk in survival plot)                           *;
 **************************************************************************************************;
 *                                                                                                *;
 * data ......... name of input data set                                                          *;
@@ -391,3 +391,4 @@ ods output close;
 *	delete _M_weight_all _data_all _s_bmt _scen_  _s_bmt_ ; 
 run;
 %mend AdjKM;
+
