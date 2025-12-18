@@ -51,5 +51,5 @@ for an analysis time point at 5 years (t*) for the pseudo-values and for a maxim
 
 
 ## References
-Mittlböck M., Heinzl H. and Pötschger U.: Adjusted Kaplan-Meier curves for partly unobserved group membership in paediatric stem cell transplantation studies, 2025. (submitted)
+Mittlböck M., Heinzl H. and Pötschger U.: Adjusted Kaplan-Meier curves for partly unobserved group membership in paediatric stem cell transplantation studies (submitted).
 <br> Mittlböck M., Pötschger U. and Heinzl H.: Weighted pseudo-values for partly unobserved group membership in paediatric stem cell transplantation studies. SMMR Vol.31(1):76-86, 2022. DOI: 10.1177/09622802211041756.
