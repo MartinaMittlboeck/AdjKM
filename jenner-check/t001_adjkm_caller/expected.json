@@ -1,0 +1,14 @@
+{
+  "_captured_at": "2026-07-14T16:36:36Z",
+  "_captured_run_id": "r_56565c7f8d8b46e6851234d524b442ba",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "Read 50 rows from DATALINES.",
+    "Wrote work.simbsp (50 rows, 3 columns).",
+    "PROC LIFETEST completed.",
+    "Wrote work.adjkm_out_TIME (50 rows, 14 columns)."
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

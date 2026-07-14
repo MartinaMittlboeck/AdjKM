@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_adjkm_caller",
+  "source_file": "AdjKM_SAS_Macro.sas",
+  "source_blob_sha": "7eb1ec62e16c5968526918b86a9a7ee20a4ad14b",
+  "source_commit": "ab46c2399a46bf0dc32564b794a4a0ca4ba696d2",
+  "notes": "The %AdjKM macro (verbatim from AdjKM_SAS_Macro.sas) computes adjusted Kaplan-Meier curves for partly-unobserved binary group membership. The repo ships only the macro definition and a .sas7bdat example; this bundle adds a small caller with 50 rows of inline synthetic survival data (columns binary_time/time/event, matching the README's example call) exercising all three donor branches (donor identified, no donor, donor-search ceased). Invoked as %AdjKM(work.simbsp, binary_time, time, event, tsearch=5, tstar=5, atrisk=(empty), alpha=0.05, boot_method=NO, boot_rep=0, ...) so the run is fast and deterministic. Produces the observed-vs-expected donor tabulate, the weighted KM estimates by group (PROC LIFETEST), and the survival-probability listing."
+}
